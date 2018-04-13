@@ -71,7 +71,7 @@ export default class Interaction {
 
     if(!this.mouseDownPosition.equals(mousePosition)) return;
 
-    this.eventEmitter.emit('click', event);
+    this.eventEmitter.emit('build', event);
   }
 
   onMouseDown(event) {
