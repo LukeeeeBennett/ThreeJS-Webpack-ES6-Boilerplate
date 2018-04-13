@@ -1,6 +1,12 @@
-import * as THREE from 'three';
+import {
+  AmbientLight,
+  PointLight,
+  DirectionalLight,
+  CameraHelper,
+  HemisphereLight,
+} from 'three';
 
-import Config from '../../data/config';
+import Config from '../../data/Config';
 
 // Sets up and places all lights in scene
 export default class Light {
@@ -12,16 +18,16 @@ export default class Light {
 
   init() {
     // Ambient
-    this.ambientLight = new THREE.AmbientLight(Config.ambientLight.color);
+    this.ambientLight = new AmbientLight(Config.ambientLight.color);
     this.ambientLight.visible = Config.ambientLight.enabled;
 
     // Point light
-    this.pointLight = new THREE.PointLight(Config.pointLight.color, Config.pointLight.intensity, Config.pointLight.distance);
+    this.pointLight = new PointLight(Config.pointLight.color, Config.pointLight.intensity, Config.pointLight.distance);
     this.pointLight.position.set(Config.pointLight.x, Config.pointLight.y, Config.pointLight.z);
     this.pointLight.visible = Config.pointLight.enabled;
 
     // Directional light
-    this.directionalLight = new THREE.DirectionalLight(Config.directionalLight.color, Config.directionalLight.intensity);
+    this.directionalLight = new DirectionalLight(Config.directionalLight.color, Config.directionalLight.intensity);
     this.directionalLight.position.set(Config.directionalLight.x, Config.directionalLight.y, Config.directionalLight.z);
     this.directionalLight.visible = Config.directionalLight.enabled;
 
@@ -38,11 +44,11 @@ export default class Light {
     this.directionalLight.shadow.mapSize.height = Config.shadow.mapHeight;
 
     // Shadow camera helper
-    this.directionalLightHelper = new THREE.CameraHelper(this.directionalLight.shadow.camera);
+    this.directionalLightHelper = new CameraHelper(this.directionalLight.shadow.camera);
     this.directionalLightHelper.visible = Config.shadow.helperEnabled;
 
     // Hemisphere light
-    this.hemiLight = new THREE.HemisphereLight(Config.hemiLight.color, Config.hemiLight.groundColor, Config.hemiLight.intensity);
+    this.hemiLight = new HemisphereLight(Config.hemiLight.color, Config.hemiLight.groundColor, Config.hemiLight.intensity);
     this.hemiLight.position.set(Config.hemiLight.x, Config.hemiLight.y, Config.hemiLight.z);
     this.hemiLight.visible = Config.hemiLight.enabled;
   }

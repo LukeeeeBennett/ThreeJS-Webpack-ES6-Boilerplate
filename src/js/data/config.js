@@ -1,4 +1,4 @@
-import TWEEN from 'tween.js';
+import { Easing } from 'tween.js';
 
 // This object contains the state of the app
 export default {
@@ -11,7 +11,7 @@ export default {
   isMouseOver: false,
   maxAnisotropy: 1,
   dpr: 1,
-  easing: TWEEN.Easing.Quadratic.InOut,
+  easing: Easing.Quadratic.InOut,
   duration: 500,
   model: {
     path: './assets/models/Teapot.json',
@@ -37,16 +37,16 @@ export default {
     near: 0.0008
   },
   camera: {
-    fov: 40,
-    near: 2,
+    fov: 30,
+    near: .1,
     far: 1000,
-    aspect: 1,
-    posX: 0,
-    posY: 30,
-    posZ: 40
+    aspect: (16 / 9),
+    posX: 3.6,
+    posY: 2.5,
+    posZ: 3.7,
   },
   controls: {
-    autoRotate: true,
+    autoRotate: false,
     autoRotateSpeed: -0.5,
     rotateSpeed: 0.5,
     zoomSpeed: 0.8,

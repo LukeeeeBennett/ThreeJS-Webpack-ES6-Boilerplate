@@ -1,4 +1,4 @@
-import Config from '../../data/config';
+import Config from '../../data/Config';
 
 // Manages all dat.GUI interactions
 export default class DatGUI {

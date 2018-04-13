@@ -1,6 +1,5 @@
-import * as THREE from 'three';
-
-import Config from '../../data/config';
+import { PerspectiveCamera } from 'three';
+import Config from '../../data/Config';
 
 // Class that creates and updates the main camera
 export default class Camera {
@@ -9,7 +8,7 @@ export default class Camera {
     const height = renderer.domElement.height;
 
     // Create and position a Perspective Camera
-    this.threeCamera = new THREE.PerspectiveCamera(Config.camera.fov, width / height, Config.camera.near, Config.camera.far);
+    this.threeCamera = new PerspectiveCamera(Config.camera.fov, width / height, Config.camera.near, Config.camera.far);
     this.threeCamera.position.set(Config.camera.posX, Config.camera.posY, Config.camera.posZ);
 
     // Initial sizing

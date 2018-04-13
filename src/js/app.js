@@ -1,6 +1,6 @@
-import Config from './data/config';
-import Detector from './utils/detector';
-import Main from './app/main';
+import Config from './data/Config';
+import Detector from './utils/Detector';
+import Main from './app/Main';
 
 // Check environment and set the Config helper
 if(__ENV__ === 'dev') {
@@ -15,7 +15,9 @@ function init() {
     Detector.addGetWebGLMessage();
   } else {
     const container = document.getElementById('appContainer');
-    new Main(container);
+    const main = new Main(container);
+
+    main.init();
   }
 }
 

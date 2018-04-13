@@ -1,24 +1,24 @@
-import * as THREE from 'three';
-
+import { MeshLambertMaterial } from 'three';
 import Config from '../../data/config';
 
 // USe this class as a helper to set up some default materials
 export default class Material {
-  constructor(color) {
-    this.basic = new THREE.MeshBasicMaterial({
-      color,
-      side: THREE.DoubleSide
+  constructor(type) {
+    this.material = new MeshLambertMaterial({
+      color: this.getColor(type),
     });
+  }
 
-    this.standard = new THREE.MeshStandardMaterial({
-      color,
-      shading: THREE.FlatShading,
-      roughness: 1,
-      metalness: 0,
-      side: THREE.DoubleSide
-    });
-
-    this.wire = new THREE.MeshBasicMaterial({wireframe: true});
+  getColor(type) {
+    switch (type) {
+      case 'stone':
+        return 0xfd500b;
+      case 'metal':
+        return 0x6f6f6f;
+      case 'wood':
+      default:
+        return 0xb3754f;
+    }
   }
 }
 

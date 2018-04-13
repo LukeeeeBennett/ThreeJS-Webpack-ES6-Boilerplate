@@ -1,14 +1,15 @@
-import * as THREE from 'three';
-
-import OrbitControls from '../../utils/orbitControls';
-import Config from '../../data/config';
+import * as THREE from 'three'; // for OrbitControls
+import OrbitControls from '../../utils/OrbitControls';
+import Config from '../../data/Config';
+import BuildControls from './BuildControls';
 
 // Controls based on orbit controls
 export default class Controls {
-  constructor(camera, container) {
-    // Orbit controls first needs to pass in THREE to constructor
+  constructor(camera, container, interaction) {
     const orbitControls = new OrbitControls(THREE);
     this.threeControls = new orbitControls(camera, container);
+
+    this.buildControls = new BuildControls(interaction);
 
     this.init();
   }
@@ -26,5 +27,7 @@ export default class Controls {
     this.threeControls.enableDamping = Config.controls.enableDamping;
     this.threeControls.enableZoom = Config.controls.enableZoom;
     this.threeControls.dampingFactor = Config.controls.dampingFactor;
+
+    this.buildControls.init();
   }
 }

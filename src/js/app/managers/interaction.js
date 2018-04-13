@@ -1,26 +1,29 @@
-import Keyboard from '../../utils/keyboard';
-import Helpers from '../../utils/helpers';
-import Config from '../../data/config';
+import { EventEmitter3 } from 'eventemitter3';
+import Keyboard from '../../utils/Keyboard';
+import Helpers from '../../utils/Helpers';
+import Config from '../../data/Config';
+import Interaction from '../helpers/Interaction';
 
 // Manages all input interactions
 export default class Interaction {
-  constructor(renderer, scene, camera, controls) {
+  constructor(renderer) {
     // Properties
     this.renderer = renderer;
-    this.scene = scene;
-    this.camera = camera;
-    this.controls = controls;
 
     this.timeout = null;
+    this.mouseDownPosition = undefined;
 
     // Instantiate keyboard helper
     this.keyboard = new Keyboard();
+    this.eventEmitted = new EventEmitter3();
 
     // Listeners
     // Mouse events
     this.renderer.domElement.addEventListener('mousemove', (event) => Helpers.throttle(this.onMouseMove(event), 250), false);
     this.renderer.domElement.addEventListener('mouseleave', (event) => this.onMouseLeave(event), false);
     this.renderer.domElement.addEventListener('mouseover', (event) => this.onMouseOver(event), false);
+    this.renderer.domElement.addEventListener('mouseup', (event) => this.onMouseUp(event), false);
+    this.renderer.domElement.addEventListener('mousedown', (event) => this.onMouseMouse(event), false);
 
     // Keyboard events
     this.keyboard.domElement.addEventListener('keydown', (event) => {
@@ -57,5 +60,25 @@ export default class Interaction {
     }, 200);
 
     Config.isMouseMoving = true;
+
+    this.eventEmitter.emit('move', intersections);
+  }
+
+  onMouseUp(event) {
+    event.preventDefault();
+
+    const mousePosition = Interaction.getMousePostion(event);
+
+    if(!this.mouseDownPosition.equals(mousePosition)) return;
+
+    this.eventEmitter.emit('click', event);
+  }
+
+  onMouseDown(event) {
+    event.preventDefault();
+
+    const mousePosition = Interaction.getMousePostion(event);
+
+    this.mouseDownPosition = mousePosition;
   }
 }
