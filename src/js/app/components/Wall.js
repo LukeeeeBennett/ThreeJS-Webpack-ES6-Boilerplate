@@ -4,6 +4,8 @@ import Geometry from '../helpers/Geometry';
 
 export default class Wall {
   constructor(scene) {
+    this.direction = 'n';
+
     this.material = new Material().material;
     this.geometry = new Geometry(scene, this.material);
 
@@ -20,8 +22,8 @@ export default class Wall {
   rotate() {
     this.direction = this.getNextDirection();
 
-    this.geometry.mesh.position.copy(new Vector3(this.getDirectionPosition()));
-    this.geometry.mesh.rotation.setFromVector3(new Vector3(this.getDirectionRotation()));
+    this.geometry.mesh.position.copy(new Vector3(...this.getDirectionPosition()));
+    this.geometry.mesh.rotation.setFromVector3(new Vector3(...this.getDirectionRotation()));
   }
 
 

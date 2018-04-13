@@ -27,9 +27,11 @@ export default class GhostBox {
   }
 
   move() {
-    const interactions = this.raycaster.getIntersections(event);
+    const intersections = this.raycaster.getIntersections(event);
 
-    if (!interactions.length) return;
+    if (!intersections.length) return;
+
+    // if (this.raycaster.isIntersectingTheGround()) return;
   }
 
   build() {}
