@@ -14,10 +14,10 @@ export default class Floor {
   }
 
   place(position = [0, -.45, 0]) {
-    this.mesh = this.geometry.place(position, [0, 0, 0]);
+    this.geometry.place(position, [0, 0, 0]);
   }
 
   rotate() {
-    this.mesh.rotation.y += stepRotation(this.mesh.rotation.y);
+    this.geometry.mesh.rotation.y += stepRotation(this.geometry.mesh.rotation.y);
   }
 }

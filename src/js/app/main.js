@@ -8,7 +8,7 @@ import Stats from './helpers/Stats';
 import Interaction from './managers/Interaction';
 import DatGUI from './managers/DatGUI';
 import Config from './../data/Config';
-import GroundPlane from './components/Controls';
+import GroundPlane from './components/GroundPlane';
 import Grid from './components/Grid';
 import Raycaster from './components/Raycaster';
 import GhostBox from './components/GhostBox';
@@ -32,7 +32,7 @@ export default class Main {
   init() {
     this.groundPlane.place();
 
-    this.raycaster = new Raycaster([this.groundPlane.mesh], this.camera.threeCamera);
+    this.raycaster = new Raycaster([this.groundPlane.geometry.mesh], this.camera.threeCamera);
     this.interaction = new Interaction(this.renderer.threeRenderer, this.raycaster);
     this.ghostBox = new GhostBox(this.scene, this.interaction, this.raycaster);
     this.controls = new Controls(this.camera.threeCamera, this.container, this.interaction);
@@ -69,7 +69,7 @@ export default class Main {
     const lights = ['ambient', 'directional', 'point', 'hemi'];
 
     lights.forEach((light) => {
-      return this.lights.place(light);
+      return this.light.place(light);
     });
   }
 

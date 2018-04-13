@@ -9,6 +9,6 @@ export default class GroundPlane {
   }
 
   place() {
-    this.mesh = this.geometry.place([0, 0, 0], [Math.PI / 2, 0, 0]);
+    this.geometry.place([0, 0, 0], [Math.PI / 2, 0, 0]);
   }
 }

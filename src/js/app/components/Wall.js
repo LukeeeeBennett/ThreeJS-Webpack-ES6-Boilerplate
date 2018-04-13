@@ -14,14 +14,14 @@ export default class Wall {
   }
 
   place() {
-    this.mesh = this.geometry.place(this.getDirectionPosition(), this.getDirectionRotation());
+    this.geometry.place(this.getDirectionPosition(), this.getDirectionRotation());
   }
 
   rotate() {
     this.direction = this.getNextDirection();
 
-    this.mesh.position.copy(new Vector3(this.getDirectionPosition()));
-    this.mesh.rotation.setFromVector3(new Vector3(this.getDirectionRotation()));
+    this.geometry.mesh.position.copy(new Vector3(this.getDirectionPosition()));
+    this.geometry.mesh.rotation.setFromVector3(new Vector3(this.getDirectionRotation()));
   }
 
 

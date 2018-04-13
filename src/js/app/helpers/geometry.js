@@ -50,17 +50,17 @@ export default class Geometry {
   }
 
   place(position, rotation) {
-    const mesh = new Mesh(this.geo, this.material);
+    this.mesh = new Mesh(this.geo, this.material);
 
     // Use ES6 spread to set position and rotation from passed in array
-    mesh.position.set(...position);
-    mesh.rotation.set(...rotation);
+    this.mesh.position.set(...position);
+    this.mesh.rotation.set(...rotation);
 
     if(Config.shadow.enabled) {
-      mesh.receiveShadow = true;
+      this.mesh.receiveShadow = true;
     }
 
-    this.scene.add(mesh);
+    this.scene.add(this.mesh);
   }
 
   setMaterial(type) {

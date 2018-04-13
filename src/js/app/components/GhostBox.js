@@ -55,13 +55,13 @@ export default class GhostBox {
   }
 
   place() {
-    this.mesh = this.geometry.place([.5, .5, .5], [0, 0, 0]);
+    this.geometry.place([.5, .5, .5], [0, 0, 0]);
   }
 
   empty() {
     if (!this.currentPiece) return;
 
-    this.mesh.remove(this.currentPiece.mesh);
+    this.geometry.mesh.remove(this.currentPiece.geometry.mesh);
     this.currentPiece.geometry.geo.dispose();
     this.currentPiece.material.dispose();
 
@@ -71,14 +71,14 @@ export default class GhostBox {
   getNew(type) {
     switch (type) {
       case 'wall':
-        return new Wall(this.mesh);
+        return new Wall(this.geometry.mesh);
       case 'stairs':
-        return new Stairs(this.mesh);
+        return new Stairs(this.geometry.mesh);
       case 'roof':
-        return new Roof(this.mesh);
+        return new Roof(this.geometry.mesh);
       case 'floor':
       default:
-        return new Floor(this.mesh);
+        return new Floor(this.geometry.mesh);
     }
   }
 }

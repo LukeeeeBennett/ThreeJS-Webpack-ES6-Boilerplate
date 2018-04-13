@@ -1,8 +1,8 @@
-import { EventEmitter3 } from 'eventemitter3';
+import EventEmitter3 from 'eventemitter3';
 import Keyboard from '../../utils/Keyboard';
 import Helpers from '../../utils/Helpers';
 import Config from '../../data/Config';
-import { getMousePostion } from '../helpers/Interaction';
+import { getMousePosition } from '../helpers/Interaction';
 
 // Manages all input interactions
 export default class Interaction {
@@ -15,7 +15,7 @@ export default class Interaction {
 
     // Instantiate keyboard helper
     this.keyboard = new Keyboard();
-    this.eventEmitted = new EventEmitter3();
+    this.eventEmitter = new EventEmitter3();
 
     // Listeners
     // Mouse events
@@ -23,7 +23,7 @@ export default class Interaction {
     this.renderer.domElement.addEventListener('mouseleave', (event) => this.onMouseLeave(event), false);
     this.renderer.domElement.addEventListener('mouseover', (event) => this.onMouseOver(event), false);
     this.renderer.domElement.addEventListener('mouseup', (event) => this.onMouseUp(event), false);
-    this.renderer.domElement.addEventListener('mousedown', (event) => this.onMouseMouse(event), false);
+    this.renderer.domElement.addEventListener('mousedown', (event) => this.onMouseDown(event), false);
 
     // Keyboard events
     this.keyboard.domElement.addEventListener('keydown', (event) => {
@@ -67,7 +67,7 @@ export default class Interaction {
   onMouseUp(event) {
     event.preventDefault();
 
-    const mousePosition = getMousePostion(event);
+    const mousePosition = getMousePosition(event);
 
     if(!this.mouseDownPosition.equals(mousePosition)) return;
 
@@ -77,7 +77,7 @@ export default class Interaction {
   onMouseDown(event) {
     event.preventDefault();
 
-    const mousePosition = getMousePostion(event);
+    const mousePosition = getMousePosition(event);
 
     this.mouseDownPosition = mousePosition;
   }

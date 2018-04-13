@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "es6-promise": "^4.2.4",
+    "eventemitter3": "^3.0.1",
     "three": "^0.90.0",
     "tween.js": "^16.6.0"
   },

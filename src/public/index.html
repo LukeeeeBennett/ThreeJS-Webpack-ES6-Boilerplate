@@ -2,15 +2,34 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Three.js Webpack ES6 Boilerplate</title>
+    <title>build-a-fort</title>
 
     <link rel="stylesheet" type="text/css" href="./assets/css/app.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/build-a-fort.css">
   </head>
 
   <body>
     <section id="appContainer" class="main">
-      <div id="loading">Loading...</div>
     </section>
+
+    <div id="build-menu">
+      <div id="pieces">
+        <button type="button" id="floor">floor</button>
+        <button type="button" id="wall">wall</button>
+        <button type="button" id="stairs">stairs</button>
+        <button type="button" id="roof">roof</button>
+      </div>
+
+      <div id="materials">
+        <button type="button" id="wood">wood</button>
+        <button type="button" id="stone">stone</button>
+        <button type="button" id="metal">metal</button>
+      </div>
+
+      <div id="controls">
+        <button type="button" id="rotate">rotate</button>
+      </div>
+    </div>
 
     <script src="./assets/js/rStats.js"></script>
     <script src="./assets/js/rStats.extras.js"></script>

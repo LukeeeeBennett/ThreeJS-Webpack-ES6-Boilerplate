@@ -1,5 +1,5 @@
 import { Raycaster as threeRaycaster } from 'three';
-import Interaction from '../helpers/Interaction';
+import { getMousePosition } from '../helpers/Interaction';
 
 export default class Raycaster {
   constructor(interceptableObjects, camera) {
@@ -13,7 +13,7 @@ export default class Raycaster {
   }
 
   getIntersections(event) {
-    const mousePosition = Interaction.getMousePosition(event);
+    const mousePosition = getMousePosition(event);
 
     this.raycaster.setFromCamera(mousePosition, this.camera);
 
@@ -21,6 +21,6 @@ export default class Raycaster {
   }
 
   addInterceptableObject(object) {
-    return this.interceptableObjects.push(object.mesh);
+    return this.interceptableObjects.push(object.geometry.mesh);
   }
 }
