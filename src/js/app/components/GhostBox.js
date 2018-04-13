@@ -23,7 +23,7 @@ export default class GhostBox {
     this.interaction.eventEmitter.on('build', this.build.bind(this));
     this.interaction.eventEmitter.on('select:piece', this.selectPiece.bind(this));
     this.interaction.eventEmitter.on('select:material', this.selectMaterial.bind(this));
-    this.interaction.eventEmitter.on('rotate', this.rotate.bind(this));
+    this.interaction.eventEmitter.on('rotate', this.rotatePiece.bind(this));
   }
 
   move() {
@@ -31,7 +31,7 @@ export default class GhostBox {
 
     if (!intersections.length) return;
 
-    // if (this.raycaster.isIntersectingTheGround()) return;
+    if (this.raycaster.isIntersectingTheGround()) return this.moveToGroundPosition();
   }
 
   build() {}
@@ -39,7 +39,7 @@ export default class GhostBox {
   selectPiece(type) {
     this.empty();
 
-    this.currentPiece = this.getNew(type);
+    this.currentPiece = this.getNewPiece(type);
     this.currentPiece.place();
     this.selectMaterial(this.currentMaterial);
 
@@ -52,7 +52,7 @@ export default class GhostBox {
     this.currentPiece.geometry.setMaterial(type);
   }
 
-  rotate() {
+  rotatePiece() {
     return this.currentPiece.rotate();
   }
 
@@ -70,7 +70,7 @@ export default class GhostBox {
     this.currentPiece = undefined;
   }
 
-  getNew(type) {
+  getNewPiece(type) {
     switch (type) {
       case 'wall':
         return new Wall(this.geometry.mesh);
@@ -83,4 +83,121 @@ export default class GhostBox {
         return new Floor(this.geometry.mesh);
     }
   }
+
+  moveToGroundPosition() {
+
+  }
 }
+
+
+
+
+
+      // const ghostBoxPosition = new Vector3(
+      //   this.gridPosition(intersection.point.x),
+      //   this.gridYPosition(intersection.point.y),
+      //   this.gridPosition(intersection.point.z)
+      // );
+
+      // this.parent = intersection.object;
+
+      // if (intersection.object.geometry.__fnb__type === 'BuildingBox' && intersections[1] && intersections[1].object.geometry.__fnb__type === 'Floor') {
+      //   // issa middle, there is a floor immediately after a building box
+      //   ghostBoxPosition.copy(intersection.object.getWorldPosition());
+
+      //   this.newPosition = new Vector3(0, 0, 0);
+      // } else if (intersection.object.geometry.vertices) {
+      //   const pointA = intersection.object.geometry.vertices[intersection.face.a];
+      //   const pointB = intersection.object.geometry.vertices[intersection.face.b];
+      //   const pointC = intersection.object.geometry.vertices[intersection.face.c];
+
+      //   const poly = [pointA, pointB, pointC];
+
+      //   const distances = poly.map((vector) => {
+      //     const absoluteVector = vector.clone().applyMatrix4(intersection.object.matrixWorld);
+      //     const distance = intersection.point.distanceTo(absoluteVector);
+
+      //     return {
+      //       distance,
+      //       vector,
+      //     };
+      //   });
+
+      //   if (distances.every((distance) => Math.sign(distance.vector.y) === -1)) return this.canBuild = false;
+
+      //   const y = distances.every((distance) => Math.sign(distance.vector.y) === 1) ? 1 : 0;
+
+      //   if (y === 0) {
+      //     // issa side
+      //     ghostBoxPosition.copy(intersection.object.getWorldPosition());
+
+      //     if (distances[0].vector.x === distances[1].vector.x && distances[0].vector.x === distances[2].vector.x) {
+      //       if(Math.sign(distances[0].vector.x) === -1) {
+      //         ghostBoxPosition.x -= 1;
+
+      //         this.newPosition = new Vector3(-1, y, 0);
+      //       } else {
+      //         ghostBoxPosition.x += 1;
+
+      //         this.newPosition = new Vector3(1, y, 0);
+      //       }
+      //     }
+
+      //     if (distances[0].vector.z === distances[1].vector.z && distances[0].vector.z === distances[2].vector.z) {
+      //       if (Math.sign(distances[0].vector.z) === -1) {
+      //         ghostBoxPosition.z -= 1;
+
+      //         this.newPosition =  new Vector3(0, y, -1);
+      //       } else {
+      //         ghostBoxPosition.z += 1;
+
+      //         this.newPosition =  new Vector3(0, y, 1);
+      //       }
+      //     }
+      //   } else {
+      //     // issa top
+      //     if (Math.abs(ghostBoxPosition.x - intersection.point.x) <= .4 && Math.abs(ghostBoxPosition.z - intersection.point.z) <= .4) {
+      //       // issa middle
+      //       ghostBoxPosition.y -= 1;
+
+      //       this.newPosition = new Vector3(0, 0, 0);
+      //     } else {
+      //       this.isRoot = true;
+      //       // issa edge
+      //       distances.sort((a, b) => {
+      //         if (a.distance < b.distance) return -1;
+      //         if (a.distance > b.distance) return 1;
+      //         if (a.distance === b.distance) return 0;
+      //       }).splice(-1, 1);
+
+      //       if (distances[0].vector.x === distances[1].vector.x) {
+      //         if(Math.sign(distances[0].vector.x) === -1) {
+      //           ghostBoxPosition.x -= 1;
+
+      //           this.newPosition = new Vector3(-1, y, 0);
+      //         } else {
+      //           ghostBoxPosition.x += 1;
+
+      //           this.newPosition = new Vector3(1, y, 0);
+      //         }
+      //       }
+
+      //       if (distances[0].vector.z === distances[1].vector.z) {
+      //         if (Math.sign(distances[0].vector.z) === -1) {
+      //           ghostBoxPosition.z -= 1;
+
+      //           this.newPosition =  new Vector3(0, y, -1);
+      //         } else {
+      //           ghostBoxPosition.z += 1;
+
+      //           this.newPosition =  new Vector3(0, y, 1);
+      //         }
+      //       }
+      //     }
+      //   }
+      // } else {
+      //   this.parent = this.scene;
+      //   this.newPosition = ghostBoxPosition;
+      // }
+
+      // if (this.canBuild) this.ghostBox.mesh.position.copy(ghostBoxPosition);
