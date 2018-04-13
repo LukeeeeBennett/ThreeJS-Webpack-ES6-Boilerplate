@@ -1,6 +1,6 @@
+import { Vector3 } from 'three';
 import Material from '../helpers/Material';
 import Geometry from '../helpers/Geometry';
-import { stepRotation } from '../helpers/Rotation';
 
 export default class Wall {
   constructor(scene) {

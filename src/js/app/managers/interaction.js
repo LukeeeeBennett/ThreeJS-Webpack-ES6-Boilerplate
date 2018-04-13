@@ -2,7 +2,7 @@ import { EventEmitter3 } from 'eventemitter3';
 import Keyboard from '../../utils/Keyboard';
 import Helpers from '../../utils/Helpers';
 import Config from '../../data/Config';
-import Interaction from '../helpers/Interaction';
+import { getMousePostion } from '../helpers/Interaction';
 
 // Manages all input interactions
 export default class Interaction {
@@ -61,13 +61,13 @@ export default class Interaction {
 
     Config.isMouseMoving = true;
 
-    this.eventEmitter.emit('move', intersections);
+    this.eventEmitter.emit('move', event);
   }
 
   onMouseUp(event) {
     event.preventDefault();
 
-    const mousePosition = Interaction.getMousePostion(event);
+    const mousePosition = getMousePostion(event);
 
     if(!this.mouseDownPosition.equals(mousePosition)) return;
 
@@ -77,7 +77,7 @@ export default class Interaction {
   onMouseDown(event) {
     event.preventDefault();
 
-    const mousePosition = Interaction.getMousePostion(event);
+    const mousePosition = getMousePostion(event);
 
     this.mouseDownPosition = mousePosition;
   }

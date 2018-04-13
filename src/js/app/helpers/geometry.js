@@ -4,7 +4,6 @@ import {
   PlaneBufferGeometry,
   BoxGeometry,
   ConeGeometry,
-  Material,
   Mesh,
 } from 'three';
 import Material from './Material';
@@ -15,7 +14,7 @@ export default class Geometry {
   constructor(scene, material) {
     this.scene = scene;
     this.geo = undefined;
-    this.material = undefined;
+    this.material = material;
   }
 
   make(type) {

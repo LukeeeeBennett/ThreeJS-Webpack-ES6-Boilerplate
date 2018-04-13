@@ -1,5 +1,9 @@
 import { MeshLambertMaterial } from 'three';
 import Geometry from '../helpers/Geometry';
+import Wall from './Wall';
+import Stairs from './Stairs';
+import Roof from './Roof';
+import Floor from './Floor';
 
 export default class GhostBox {
   constructor(scene, interaction, raycaster) {
@@ -40,7 +44,7 @@ export default class GhostBox {
     this.raycaster.addInterceptableObject(this.currentPiece);
   }
 
-  selectMaterial(wood) {
+  selectMaterial(type) {
     this.currentMaterial = type;
 
     this.currentPiece.geometry.setMaterial(type);

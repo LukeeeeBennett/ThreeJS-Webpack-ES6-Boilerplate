@@ -4,12 +4,14 @@ import Renderer from './components/Renderer';
 import Camera from './components/Camera';
 import Light from './components/Light';
 import Controls from './components/Controls';
-import Geometry from './helpers/Geometry';
 import Stats from './helpers/Stats';
 import Interaction from './managers/Interaction';
 import DatGUI from './managers/DatGUI';
 import Config from './../data/Config';
 import GroundPlane from './components/Controls';
+import Grid from './components/Grid';
+import Raycaster from './components/Raycaster';
+import GhostBox from './components/GhostBox';
 
 // This class instantiates and ties all of the components together, starts the loading process and renders the main loop
 export default class Main {

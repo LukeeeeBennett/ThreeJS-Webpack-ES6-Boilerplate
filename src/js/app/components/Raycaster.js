@@ -15,6 +15,8 @@ export default class Raycaster {
   getIntersections(event) {
     const mousePosition = Interaction.getMousePosition(event);
 
+    this.raycaster.setFromCamera(mousePosition, this.camera);
+
     return this.intersectObjects();
   }
 
