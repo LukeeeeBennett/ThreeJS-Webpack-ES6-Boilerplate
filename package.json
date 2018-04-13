@@ -10,6 +10,7 @@
     "prebuild": "run-s clean lint",
     "clean": "rimraf build",
     "lint": "eslint src/js/",
+    "lint-fix": "eslint --fix src/js/",
     "webpack-server": "set NODE_ENV=0&& webpack-dev-server --progress --color --open --hot",
     "webpack-watch": "set NODE_ENV=0&& webpack --progress --color --watch --hot",
     "dev:sass": "node-sass -w -r src/css/ -o src/public/assets/css/",

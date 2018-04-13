@@ -20,8 +20,8 @@ export default class Wall {
   rotate() {
     this.direction = this.getNextDirection();
 
-      this.mesh.position.copy(new Vector3(this.getDirectionPosition()));
-      this.mesh.rotation.setFromVector3(new Vector3(this.getDirectionRotation()));
+    this.mesh.position.copy(new Vector3(this.getDirectionPosition()));
+    this.mesh.rotation.setFromVector3(new Vector3(this.getDirectionRotation()));
   }
 
 
