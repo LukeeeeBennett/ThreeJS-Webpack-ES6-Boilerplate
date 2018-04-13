@@ -212,3 +212,41 @@ export default class GhostBox {
       // }
 
       // if (this.canBuild) this.ghostBox.mesh.position.copy(ghostBoxPosition);
+
+
+
+
+
+
+// And old build placement code, above is only moving ghostbox and calcing positions
+
+
+      // if (!this.canBuild) return;
+
+      // const isRoot = (this.parent instanceof Scene) || this.isRoot;
+
+      // let box;
+      // if (isRoot) {
+      //   box = new BuildingBox(this.parent);
+      //   box.place([this.newPosition.x, this.newPosition.y, this.newPosition.z]);
+      // }
+
+      // const parent = box ? box.mesh : this.parent;
+
+      // if (this.buildControls.currentPiece === 'floor') {
+      //   const floor = new Floor(parent);
+      //   floor.place();
+      //   this.raycaster.interceptableObjects.push(floor.mesh);
+      // } else if (this.buildControls.currentPiece === 'wall') {
+      //   const wall = new Wall(parent);
+      //   wall.place();
+      //   this.raycaster.interceptableObjects.push(wall.mesh);
+      // } else if (this.buildControls.currentPiece === 'stairs') {
+      //   const stairs = new Stairs(parent);
+      //   stairs.place();
+      //   this.raycaster.interceptableObjects.push(stairs.mesh);
+      // }
+
+      // if (!isRoot) return;
+
+      // this.raycaster.interceptableObjects.push(box.mesh);
