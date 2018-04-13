@@ -9,8 +9,8 @@ export default class Roof {
 
     this.geometry.make('cone')(.7, .4, 4, 1, true);
 
-    this.geometry.geo.__fnb__type = 'Roof';
-    this.geometry.geo.__fnb__instance = this;
+    this.geometry.geo.__baf__type = 'Roof';
+    this.geometry.geo.__baf__instance = this;
   }
 
   place(position = [0, .7, 0]) {

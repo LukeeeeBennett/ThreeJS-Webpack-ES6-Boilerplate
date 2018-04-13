@@ -9,8 +9,8 @@ export default class Floor {
 
     this.geometry.make('box')(1, .1, 1, 1, 1, 1);
 
-    this.geometry.geo.__fnb__type = 'Floor';
-    this.geometry.geo.__fnb__instance = this;
+    this.geometry.geo.__baf__type = 'Floor';
+    this.geometry.geo.__baf__instance = this;
   }
 
   place(position = [0, -.45, 0]) {

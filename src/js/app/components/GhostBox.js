@@ -34,7 +34,9 @@ export default class GhostBox {
     if (this.raycaster.isIntersectingTheGround()) return this.moveToGroundPosition();
   }
 
-  build() {}
+  build() {
+    console.log('build');
+  }
 
   selectPiece(type) {
     this.empty();
@@ -85,11 +87,20 @@ export default class GhostBox {
   }
 
   moveToGroundPosition() {
+    this.nextPosition = this.raycaster.currentGridPosition();
 
+    this.moveToNextPosition();
+  }
+
+  moveToNextPosition() {
+    this.geometry.mesh.position.copy(this.nextPosition);
   }
 }
 
 
+
+// everything commented out is old interaction code,
+// its the key to all of this bs, niw ot uoy tnaw tnod yeht🔑
 
 
 
@@ -101,7 +112,7 @@ export default class GhostBox {
 
       // this.parent = intersection.object;
 
-      // if (intersection.object.geometry.__fnb__type === 'BuildingBox' && intersections[1] && intersections[1].object.geometry.__fnb__type === 'Floor') {
+      // if (intersection.object.geometry.__baf__type === 'BuildingBox' && intersections[1] && intersections[1].object.geometry.__baf__type === 'Floor') {
       //   // issa middle, there is a floor immediately after a building box
       //   ghostBoxPosition.copy(intersection.object.getWorldPosition());
 

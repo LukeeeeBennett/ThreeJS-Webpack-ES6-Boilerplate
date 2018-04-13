@@ -6,6 +6,9 @@ export default class Ground {
     this.material = new MeshLambertMaterial({ color: 0xd3f0cc, side: DoubleSide });
     this.geometry = new Geometry(scene, this.material);
     this.geometry.make('plane-buffer')(50, 50, 1, 1);
+
+    this.geometry.geo.__baf__type = 'Ground';
+    this.geometry.geo.__baf__instance = this;
   }
 
   place() {

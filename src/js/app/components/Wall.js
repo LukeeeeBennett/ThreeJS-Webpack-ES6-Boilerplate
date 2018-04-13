@@ -11,8 +11,8 @@ export default class Wall {
 
     this.geometry.make('box')(.1, 1, 1, 1, 1, 1);
 
-    this.geometry.geo.__fnb__type = 'Wall';
-    this.geometry.geo.__fnb__instance = this;
+    this.geometry.geo.__baf__type = 'Wall';
+    this.geometry.geo.__baf__instance = this;
   }
 
   place() {

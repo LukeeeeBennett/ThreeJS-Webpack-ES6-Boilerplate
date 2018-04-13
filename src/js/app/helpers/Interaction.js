@@ -10,3 +10,11 @@ export function getMousePosition(event) {
 
   return mousePosition;
 }
+
+export function gridPosition(position) {
+  return Math.floor(position) + 0.5;
+}
+
+export function gridYPosition(position) {
+  return Math.max(gridPosition(position), .5);
+}

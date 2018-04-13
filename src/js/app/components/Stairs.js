@@ -9,12 +9,12 @@ export default class Stairs {
 
     this.geometry.make('box')(.1, 1.3, 1, 1, 1, 1);
 
-    this.geometry.geo.__fnb__type = 'Stairs';
-    this.geometry.geo.__fnb__instance = this;
+    this.geometry.geo.__baf__type = 'Stairs';
+    this.geometry.geo.__baf__instance = this;
   }
 
   place(position = [0, 0, 0]) {
-    this.geometry.place(position, [0, 0, -10.22]);
+    this.geometry.place(position, [0, 1.5708, -10.22]);
   }
 
   rotate() {
