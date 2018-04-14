@@ -65,8 +65,6 @@ export default class GhostBox {
     this.currentPiece = this.getNewPiece(type);
     this.currentPiece.place();
     this.selectMaterial(this.currentMaterial);
-
-    this.raycaster.addInterceptableObject(this.currentPiece);
   }
 
   selectMaterial(type) {
@@ -115,6 +113,14 @@ export default class GhostBox {
 
   moveToNextPosition() {
     this.geometry.mesh.position.copy(this.nextPosition);
+  }
+
+  moveAboveBuildingBoxPosition() {
+    
+  }
+
+  moveAboveAsideBuildingBoxPosition() {
+    
   }
 }
 

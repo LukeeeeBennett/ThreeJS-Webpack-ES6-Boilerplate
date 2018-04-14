@@ -17,6 +17,8 @@ export default class BuildingBox {
 
   place(position) {
     this.geometry.place(position, [0, 0, 0]);
+
+    this.raycaster.addInterceptableObject(this);
   }
 
   setPiece(piece) {

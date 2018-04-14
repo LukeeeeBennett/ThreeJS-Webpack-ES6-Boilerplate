@@ -3,11 +3,12 @@ import Geometry from '../helpers/Geometry';
 import { stepRotation } from '../helpers/Rotation';
 
 export default class Stairs {
-  constructor(parent, material, geometry, mesh) {
+  constructor(parent, material, geometry, mesh, rotation) {
     this.material = material || new Material().material;
     this.geometry = new Geometry(parent, this.material);
     this.geometry.geo = geometry;
     this.geometry.mesh = mesh;
+    this.startingRotation = rotation ? [rotation.x, rotation.y, rotation.z] : undefined;
 
     if (!geometry) this.geometry.make('box')(.1, 1.3, 1, 1, 1, 1);
 
@@ -16,7 +17,11 @@ export default class Stairs {
   }
 
   place(position = [0, 0, 0]) {
-    this.geometry.place(position, [0, 1.5708, -10.22]);
+    const rotation = this.startingRotation || [0, 1.5708, -10.22];
+
+    this.startingRotation = undefined;
+
+    this.geometry.place(position, rotation);
   }
 
   rotate() {
@@ -28,7 +33,8 @@ export default class Stairs {
       parent,
       this.material.clone(),
       this.geometry.geo.clone(),
-      this.geometry.mesh.clone()
+      this.geometry.mesh.clone(),
+      this.geometry.mesh.rotation.clone()
     );
   }
 }
