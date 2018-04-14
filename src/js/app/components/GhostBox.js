@@ -36,7 +36,16 @@ export default class GhostBox {
 
     if (!intersections.length) return;
 
-    if (this.raycaster.isIntersectingTheGround()) return this.moveToGroundPosition();
+    if (this.raycaster.isIntersectingGround()) return this.moveToGroundPosition();
+
+    if (this.raycaster.isIntersectingBuildingBoxTopCenter()) return this.moveAboveBuildingBoxPosition();
+    if (this.raycaster.isIntersectingBuildingBoxTopEdge()) return this.moveAboveAsideBuildingBoxPosition();
+    
+    if (this.raycaster.isIntersectingBuildingBoxSide()) return;
+  }
+
+  validate() {
+    console.log('validate');
   }
 
   build() {

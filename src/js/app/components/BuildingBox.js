@@ -10,6 +10,9 @@ export default class BuildingBox {
     this.material = new MeshLambertMaterial({ color: 0x77feff, visible: true, transparent: true, opacity: .4 });
     this.geometry = new Geometry(parent, this.material);
     this.geometry.make('box')(1, 1, 1, 1, 1, 1);
+
+    this.geometry.geo.__baf__type = 'BuildingBox';
+    this.geometry.geo.__baf__instance = this;
   }
 
   place(position) {
