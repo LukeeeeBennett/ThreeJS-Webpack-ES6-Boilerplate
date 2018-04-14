@@ -1,17 +1,22 @@
 import { MeshLambertMaterial } from 'three';
 import Geometry from '../helpers/Geometry';
+import { emptyBox } from '../helpers/Box';
 import Wall from './Wall';
 import Stairs from './Stairs';
 import Roof from './Roof';
 import Floor from './Floor';
+import BuildingBox from './BuildingBox';
 
 export default class GhostBox {
   constructor(scene, interaction, raycaster) {
+    this.scene = scene;
     this.interaction = interaction;
     this.raycaster = raycaster;
 
     this.currentPiece = undefined;
     this.currentMaterialType = 'wood';
+    this.nextPosition = undefined;
+    this.buildingBox = undefined;
 
     this.material = new MeshLambertMaterial({ color: 0x77feff, visible: true, transparent: true, opacity: .4 });
     this.geometry = new Geometry(scene, this.material);
@@ -35,7 +40,14 @@ export default class GhostBox {
   }
 
   build() {
-    console.log('build');
+    this.buildingBox = new BuildingBox(this.parent, this.raycaster);
+    
+    this.placeBuildingBox();
+    this.buildingBox.setPiece(this.currentPiece);
+  }
+
+  placeBuildingBox() {
+    this.buildingBox.place([this.nextPosition.x, this.nextPosition.y, this.nextPosition.z]);
   }
 
   selectPiece(type) {
@@ -65,9 +77,7 @@ export default class GhostBox {
   empty() {
     if (!this.currentPiece) return;
 
-    this.geometry.mesh.remove(this.currentPiece.geometry.mesh);
-    this.currentPiece.geometry.geo.dispose();
-    this.currentPiece.material.dispose();
+    emptyBox(this.geometry.mesh, this.currentPiece);
 
     this.currentPiece = undefined;
   }
@@ -88,6 +98,8 @@ export default class GhostBox {
 
   moveToGroundPosition() {
     this.nextPosition = this.raycaster.currentGridPosition();
+
+    this.parent = this.scene;
 
     this.moveToNextPosition();
   }

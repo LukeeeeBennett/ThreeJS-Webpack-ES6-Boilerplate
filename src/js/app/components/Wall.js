@@ -3,13 +3,15 @@ import Material from '../helpers/Material';
 import Geometry from '../helpers/Geometry';
 
 export default class Wall {
-  constructor(scene) {
+  constructor(parent, material, geometry, mesh) {
     this.direction = 'n';
 
-    this.material = new Material().material;
-    this.geometry = new Geometry(scene, this.material);
+    this.material = material || new Material().material;
+    this.geometry = new Geometry(parent, this.material);
+    this.geometry.geo = geometry;
+    this.geometry.mesh = mesh;
 
-    this.geometry.make('box')(.1, 1, 1, 1, 1, 1);
+    if (!geometry) this.geometry.make('box')(.1, 1, 1, 1, 1, 1);
 
     this.geometry.geo.__baf__type = 'Wall';
     this.geometry.geo.__baf__instance = this;
@@ -65,5 +67,14 @@ export default class Wall {
       default:
         return [0, 1.5708, 0];
     }
+  }
+
+  clone(parent) {
+    return new Wall(
+      parent,
+      this.material.clone(),
+      this.geometry.geo.clone(),
+      this.geometry.mesh.clone()
+    );
   }
 }

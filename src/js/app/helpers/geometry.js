@@ -50,7 +50,7 @@ export default class Geometry {
   }
 
   place(position, rotation) {
-    this.mesh = new Mesh(this.geo, this.material);
+    this.mesh = this.mesh || new Mesh(this.geo, this.material);
 
     // Use ES6 spread to set position and rotation from passed in array
     this.mesh.position.set(...position);
