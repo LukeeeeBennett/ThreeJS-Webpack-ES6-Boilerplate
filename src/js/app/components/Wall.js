@@ -3,11 +3,11 @@ import Material from '../helpers/Material';
 import Geometry from '../helpers/Geometry';
 
 export default class Wall {
-  constructor(parent, material, geometry, mesh, rotation, position) {
+  constructor(parent, material, geometry, mesh, position, rotation) {
     this.direction = 'n';
     
-    this.startingRotation = rotation ? [rotation.x, rotation.y, rotation.z] : undefined;
     this.startingPosition = position ? [position.x, position.y, position.z] : undefined;
+    this.startingRotation = rotation ? [rotation.x, rotation.y, rotation.z] : undefined;
 
     this.material = material || new Material().material;
     this.geometry = new Geometry(parent, this.material);
@@ -21,11 +21,11 @@ export default class Wall {
   }
 
   place() {
-    const rotation = this.startingRotation || this.getDirectionRotation();
     const position = this.startingPosition || this.getDirectionPosition();
+    const rotation = this.startingRotation || this.getDirectionRotation();
 
-    this.startingRotation = undefined;
     this.startingPosition = undefined;
+    this.startingRotation = undefined;
 
     this.geometry.place(position, rotation);
   }
@@ -81,11 +81,11 @@ export default class Wall {
   clone(parent) {
     return new Wall(
       parent,
-      this.material.clone(),
+      this.geometry.material.clone(),
       this.geometry.geo.clone(),
       this.geometry.mesh.clone(),
-      this.geometry.mesh.rotation.clone(),
-      this.geometry.mesh.position.clone()
+      this.geometry.mesh.position.clone(),
+      this.geometry.mesh.rotation.clone()
     );
   }
 }
