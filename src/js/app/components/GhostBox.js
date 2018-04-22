@@ -60,14 +60,19 @@ export default class GhostBox {
   }
 
   build() {
-    this.buildingBox = new BuildingBox(this.parent, this.raycaster);
+    this.buildingBox = this.raycaster.currentBuildingBox ? this.raycaster.currentBuildingBox.geometry.__baf__instance : this.placeNewBuildingBox();
     
-    this.placeBuildingBox();
-    this.buildingBox.setPiece(this.currentPiece);
+    this.buildingBox.addPiece(this.currentPiece);
+
+    this.raycaster.addInterceptableObject(this.buildingBox);
   }
 
-  placeBuildingBox() {
-    this.buildingBox.place([this.nextPosition.x, this.nextPosition.y, this.nextPosition.z]);
+  placeNewBuildingBox() {
+    const buildingBox = new BuildingBox(this.parent, this.raycaster)
+
+    buildingBox.place([this.nextPosition.x, this.nextPosition.y, this.nextPosition.z]);
+
+    return buildingBox;
   }
 
   selectPiece(type) {

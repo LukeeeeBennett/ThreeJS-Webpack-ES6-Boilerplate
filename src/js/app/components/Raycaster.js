@@ -24,7 +24,10 @@ export default class Raycaster {
 
     this.raycaster.setFromCamera(mousePosition, this.camera);
 
-    this.currentIntersections = this.intersectObjects();
+    const intersections = this.intersectObjects();
+
+    this.currentIntersections = intersections.filter(intersection => intersection.object.geometry.__baf__type !== 'BuildingBox');
+    this.currentBuildingBox = intersections[0].object.geometry.__baf__type === 'BuildingBox' ? intersections[0].object : undefined;
     this.currentIntersection = this.currentIntersections[0];
 
     return this.currentIntersections;

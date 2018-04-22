@@ -18,9 +18,7 @@ export default class BuildingBox {
     this.geometry.place(position, [0, 0, 0]);
   }
 
-  setPiece(piece) {
-    this.empty();
-
+  addPiece(piece) {
     this.currentPiece = piece.clone(this.geometry.mesh);
     
     this.currentPiece.place();
