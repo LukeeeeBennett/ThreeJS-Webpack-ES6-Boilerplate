@@ -1,6 +1,5 @@
 import { MeshLambertMaterial } from 'three';
 import Geometry from '../helpers/Geometry';
-import { emptyBox } from '../helpers/Box';
 
 export default class BuildingBox {
   constructor(parent, raycaster) {
@@ -17,8 +16,6 @@ export default class BuildingBox {
 
   place(position) {
     this.geometry.place(position, [0, 0, 0]);
-
-    this.raycaster.addInterceptableObject(this);
   }
 
   setPiece(piece) {
@@ -34,7 +31,7 @@ export default class BuildingBox {
   empty() {
     if (!this.currentPiece) return;
 
-    emptyBox(this.geometry.mesh, this.currentPiece);
+    this.geometry.mesh.remove(this.currentPiece.geometry.mesh);
 
     this.currentPiece = undefined;
   }

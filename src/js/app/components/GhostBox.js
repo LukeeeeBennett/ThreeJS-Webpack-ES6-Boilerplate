@@ -1,6 +1,5 @@
 import { MeshLambertMaterial } from 'three';
 import Geometry from '../helpers/Geometry';
-import { emptyBox } from '../helpers/Box';
 import Wall from './Wall';
 import Stairs from './Stairs';
 import Roof from './Roof';
@@ -36,12 +35,24 @@ export default class GhostBox {
 
     if (!intersections.length) return;
 
-    if (this.raycaster.isIntersectingGround()) return this.moveToGroundPosition();
+    if (this.raycaster.isIntersectingGround()) return this.moveToCurrentPosition();
 
-    if (this.raycaster.isIntersectingBuildingBoxTopCenter()) return this.moveAboveBuildingBoxPosition();
-    if (this.raycaster.isIntersectingBuildingBoxTopEdge()) return this.moveAboveAsideBuildingBoxPosition();
-    
-    if (this.raycaster.isIntersectingBuildingBoxSide()) return;
+    if (this.raycaster.isIntersectingFloorTop()) return this.moveToCurrentPosition();
+    if (this.raycaster.isIntersectingFloorSide()) return this.moveToAdjacentPosition();
+
+  //   if (this.raycaster.isIntersectingRoofTopCenter()) return this.moveToCurrentPosition();
+  //   if (this.raycaster.isIntersectingRoofTopEdge()) return this.moveToAdjacentPosition();
+
+  //   if (this.raycaster.isIntersectingWallOutsideTop()) return this.moveToAdjacentPosition();
+  //   if (this.raycaster.isIntersectingWallOutsideBottom()) return this.moveToAboveAdjacentPosition();
+  //   if (this.raycaster.isIntersectingWallInsideTop()) return this.moveToCurrentPosition();
+  //   if (this.raycaster.isIntersectingWallInsideBottom()) return this.moveToAboveCurrentPosition();
+
+  //   if (this.raycaster.isIntersectingStairsBottomEdge()) return this.moveToAdjacentPosition();
+  //   if (this.raycaster.isIntersectingStairsTopEdge()) return this.moveToAboveAdjacentPosition();
+  //   if (this.raycaster.isIntersectingStairsTopAlmostEdge()) return this.moveToAboveCurrentPosition();
+  //   if (this.raycaster.isIntersectingStairsTopCenter()) return this.moveToAboveCurrentPosition();
+  //   if (this.raycaster.isIntersectingStairsSide()) return this.moveToAdjacentPosition();
   }
 
   validate() {
@@ -64,11 +75,11 @@ export default class GhostBox {
 
     this.currentPiece = this.getNewPiece(type);
     this.currentPiece.place();
-    this.selectMaterial(this.currentMaterial);
+    this.selectMaterial(this.currentMaterialType);
   }
 
   selectMaterial(type) {
-    this.currentMaterial = type;
+    this.currentMaterialType = type;
 
     this.currentPiece.geometry.setMaterial(type);
   }
@@ -84,7 +95,7 @@ export default class GhostBox {
   empty() {
     if (!this.currentPiece) return;
 
-    emptyBox(this.geometry.mesh, this.currentPiece);
+    this.geometry.mesh.remove(this.currentPiece.geometry.mesh);
 
     this.currentPiece = undefined;
   }
@@ -103,7 +114,7 @@ export default class GhostBox {
     }
   }
 
-  moveToGroundPosition() {
+  moveToCurrentPosition() {
     this.nextPosition = this.raycaster.currentGridPosition();
 
     this.parent = this.scene;
@@ -115,12 +126,12 @@ export default class GhostBox {
     this.geometry.mesh.position.copy(this.nextPosition);
   }
 
-  moveAboveBuildingBoxPosition() {
-    
-  }
+  moveToAdjacentPosition() {
+    this.nextPosition = this.raycaster.currentGridPosition();
 
-  moveAboveAsideBuildingBoxPosition() {
-    
+    this.parent = this.scene;
+
+    this.moveToNextPosition();
   }
 }
 

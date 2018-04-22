@@ -50,29 +50,16 @@ export default class Raycaster {
     return !!this.currentIntersection.object.geometry.vertices;
   }
 
-  isIntersectingBuildingBox() {
-    return this.isIntersectingObject() && this.currentIntersection.object.geometry.__baf__type === 'BuildingBox';
+  isIntersectingFloor() {
+    return this.isIntersectingObject() && this.currentIntersection.object.geometry.__baf__type === 'Floor';
   }
 
-  isIntersectingBuildingBoxTop() {
-    return this.isIntersectingBuildingBox() && this.intersectedFace().every(vertex => Math.sign(vertex.y) === 1);
+  isIntersectingFloorTop() {
+    return this.isIntersectingFloor() && this.isIntersectingTopFace();
   }
 
-  isIntersectingBuildingBoxSide() {
-    return this.isIntersectingBuildingBox() && !this.isIntersectingBuildingBoxTop();
-  }
-
-  isIntersectingBuildingBoxTopCenter() {
-    const currentGridPosition = this.currentGridPosition();
-
-    const xDelta = Math.abs(currentGridPosition.x - this.currentIntersection.point.x);
-    const zDelta = Math.abs(currentGridPosition.z - this.currentIntersection.point.z);
-
-    return this.isIntersectingBuildingBoxTop() && xDelta <= .4 && zDelta <= .4;
-  }
-
-  isIntersectingBuildingBoxTopEdge() {
-    return this.isIntersectingBuildingBoxTop() && !this.isIntersectingBuildingBoxTopCenter();
+  isIntersectingFloorSide() {
+    return this.isIntersectingFloor() && this.isIntersectingSideFace();
   }
 
   intersectedFace() {
@@ -81,6 +68,46 @@ export default class Raycaster {
     const vertexC = this.currentIntersection.object.geometry.vertices[this.currentIntersection.face.c];
 
     return [vertexA, vertexB, vertexC];
+  }
+
+  isIntersectingTopFace() {
+    return this.intersectedFace().every(vertex => Math.sign(vertex.y) === 1);
+  }
+
+  isIntersectingBottomFace() {
+    return this.intersectedFace().every(vertex => Math.sign(vertex.y) === -1);
+  }
+
+  isIntersectingSideFace() {
+    return !this.isIntersectingTopFace() && !this.isIntersectingBottomFace();
+  }
+
+  isIntersectingNorthOrSouthSideFace() {
+    return this.isIntersectingSideFace() &&  !!this.intersectedFace().reduce((result, vertex) => {
+      return result.z === vertex.z ? result : false;
+    });
+  }
+
+  isIntersectingEastOrWestSideFace() {
+    return this.isIntersectingSideFace() &&  !!this.intersectedFace().reduce((result, vertex) => {
+      return result.x === vertex.x ? result : false;
+    });
+  }
+
+  isIntersectingNorthFace() {
+    return this.isIntersectingNorthOrSouthSideFace() && this.intersectedFace().every(vertex => Math.sign(vertex.z) === 1);
+  }
+
+  isIntersectingEastFace() {
+    return this.isIntersectingEastOrWestSideFace() && this.intersectedFace().every(vertex => Math.sign(vertex.x) === 1);
+  }
+
+  isIntersectingSouthFace() {
+    return this.isIntersectingNorthOrSouthSideFace() && this.intersectedFace().every(vertex => Math.sign(vertex.z) === -1);
+  }
+
+  isIntersectingWestFace() {
+    return this.isIntersectingEastOrWestSideFace() && this.intersectedFace().every(vertex => Math.sign(vertex.x) === -1);
   }
 
   intersectedFaceVertexDistances() {
